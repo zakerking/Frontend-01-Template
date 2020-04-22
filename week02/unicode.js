@@ -1,36 +1,8 @@
-#学号: G20200447010663
-#姓名: 金叙辰
-#班级: 3班
-#小组: 8组
-#作业&总结链接:
-
-## 写一个正则表达式, 匹配所有 Number 直接量
-
-`Number` 直接量有
-- 十进制
-  - 我们正常使用的进制
-- 二进制
-  - 0b开始
-- 八进制
-  - 数字前面加0代表八进制
-- 十六进制
-  - 数字前面加0x代表十六进制
-- 浮点数
-- NaN
-- 科学计数法
-  - E代表底数10, 后面跟E的指数, 可以是正负值
-
-```JS
-/^((\d+(\.\d+)?[Ee]-?\d+)|(-?\d+(\.\d+)?)|(NaN)|(-?0b[10]+)|(-?0o?\d+)|(-?0x\d+)|(Number\.MAX_SAFE_INTEGER|Number\.Min_SAFE_INTEGER))$|/g
-```
-
-
-## 写一个 UTF-8 Encoding 的函数
-
-`UTF-8` 是针对 Unicode 可变长度的编码, 所以要先整理 UTF-8 的转码规则;
-`ACSII` 编码的字符都是单字节的, `UTF-8` 是为了解决多字节的字符占用空间问题;
-
-```JS
+// 将字符串转为utf-8格式
+// 对于单字节字符, 字节第一位为0, 后面为unicode码
+// 对于 n 字节的符号, 字节的前 n 位都是1, n + 1 设为0,后面字节前两位设为10, 剩下的是 unicode 码
+// 字节长度 n 根据Unicode符号范围规范确定, 不是二进制的字节长度
+// 这个函数只处理单字符
 function utf8_encoding (str) {
   if (typeof str !== 'string') return str;
   const unicodeMap = [
@@ -78,7 +50,3 @@ function utf8_encoding (str) {
   }
   return utf8;
 }
-```
-
-
-## 字符串
